@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="m-5 r-card">
+	<div style="background-color: white;" class="row">
+		<div style=" border-right: 1px dashed red;" class="col-md-6">
+			<dir class="">
+				<h2>Form for Post</h2>
+				<hr class="dashed">
+				<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					{{ form | crispy }}
+					<button class="btn btn-success" type="submit">Submit</button>
+				</form>
+			</dir>
+		</div>
+	</div>
+</div>
+{% endblock %}
