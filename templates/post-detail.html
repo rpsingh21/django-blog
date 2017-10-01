@@ -5,7 +5,7 @@
     <!-- Post Content Column -->
 <div class="container">
   <br>
-  <div class="row" ng-app="post">
+  <div class="row">
     <div class="col-lg-8">
     <div class="card my-4">
     <div class="card-body">
@@ -13,7 +13,6 @@
       <h1 class="mt-4 text-center">{{ post.title | title }}</h1>
 
       <hr class='dashed'>
-
       <!-- Date/Time -->
       <p>Posted on {{ post.timestamp }}</p>
       {% if post.image %}
@@ -27,9 +26,7 @@
 
       <!-- Post Content -->
       <div class="">{{ post.content }}</div>
-
       <hr class='dashed'>
-
       <!-- Comments Form -->
       <div class="card my-4">
         <h5 class="card-header">Leave a Comment:</h5>
@@ -42,47 +39,19 @@
           </form>
         </div>
       </div>
-      <!-- Single Comment -->
-      <div class="media mb-4">
-        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-        <div class="media-body">
-          <h5 class="mt-0">Commenter Name</h5>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </div>
+      
+      <!--  Comment -->
+      <hr class="dashed">
+      <button id="getComment"> comments load</button>
+      <div id="comments">
       </div>
-
-      <!-- Comment with nested comments -->
-      <div ng-controller="comments" class="media mb-4">
-        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-        <div class="media-body">
-          <h5 class="mt-0">Commenter Name</h5>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-          <div class="media mt-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-              <h5 class="mt-0">Commenter Name</h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-          </div>
-
-          <div class="media mt-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-              <h5 class="mt-0">Commenter Name</h5>
-              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-          </div>
-
-        </div>
-      </div>
+  
       </div>
     </div>
     <br/><br/>
     </div>
   <!-- Sidebar Widgets Column -->
   <div class="col-md-4">
-
     <!-- Search Widget -->
     <div class="card my-4">
       <h5 class="card-header">Search</h5>
@@ -95,7 +64,6 @@
         </div>
       </div>
     </div>
-
     <!-- Categories Widget -->
     <div class="card my-4">
       <h5 class="card-header">Categories</h5>
@@ -130,7 +98,6 @@
         </div>
       </div>
     </div>
-
     <!-- Side Widget -->
     <div class="card my-4">
       <h5 class="card-header">Side Widget</h5>
@@ -138,16 +105,32 @@
         You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
       </div>
     </div>
-
   </div>
-
   </div>
   <!-- /.row -->
-
   </div>
   <!-- /.container -->
 
 {% endblock %}
 {% block ang %}
-<script type="text/javascript" src="{% static '/js/ang-app/post-details.js' %}"></script>
+<!-- <script type="text/javascript" src="{% static '/js/ang-app/post-details.js' %}"></script> -->
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#getComment").click(function(){
+        $.ajax({
+            method: "GET",
+            url: "/comments/1/",
+            success: function (data) {
+                document.getElementById("comments").innerHTML=data;
+            },
+            error: function(data){
+                console.log("error")
+                console.log(data)
+            }
+        })
+    });
+  });
+
+</script>
 {% endblock %}
