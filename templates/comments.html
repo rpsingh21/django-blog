@@ -1,4 +1,3 @@
-
 {% load my_filters %}
 {% for comment in comments %}
 <li class="clearfix root_block">
@@ -39,12 +38,28 @@
          	</span>
          	 | 
          	<span>
-         		<a href="#">
+         		<a href="javascript:reply('{{ comment.id }}')" class="reply">
          			<i class="fa fa-comments-o fa-lg" aria-hidden="true"> </i>
          			<span> reply </span> 
          		</a>
          	</span>
-
+           | 
+           <span>
+            <a href="javascript:delete_comment('{% url 'comment-api:delete' comment.id %}')">
+              <i class="fa fa-bitbucket" aria-hidden="true"></i>
+              <span>Delete</span> 
+            </a>
+          </span>
+            | 
+            <span>
+            <a href="#">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              <span>edit</span> 
+            </a>
+          </span>
+          <span>
+            <form style="display: none;" id="p-{{ comment.id }}"><center><img src="https://lingojam.com/img/loading_nice.gif" height="40px"></center></form>
+          </span>
          </div>
       </div>
   </div>

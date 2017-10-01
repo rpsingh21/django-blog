@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 
 from .models import Posts
 from .forms import PostForms
+from comments.forms import CommentForm
 
 # Create your views here.
 
@@ -16,9 +17,15 @@ def post_list(request):
 
 def post_detail(request,slug):
 	post = get_object_or_404(Posts,slug=slug)
+	initial_data = {
+		"content_type": post.get_content_type,
+		"slug": post.slug
+	}
+	comment_form = CommentForm(request.POST or None,initial=initial_data)
 	context={
 		'title':post.title,
-		'post':post
+		'post':post,
+		'comment_form':comment_form
 	}
 	return render(request,"post-detail.html",context)
 

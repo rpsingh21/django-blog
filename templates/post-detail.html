@@ -1,62 +1,54 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
+{% load crispy_forms_tags %}
 <!-- Page Content -->
-{% load staticfiles %}
-{% block content %}
-    <!-- Post Content Column -->
+{% load staticfiles %} {% block content %}
+<!-- Post Content Column -->
 <div class="container">
-  <br>
-  <div class="row">
-    <div class="col-lg-8">
-    <div class="card my-4">
-    <div class="card-body">
-      <!-- Title -->
-      <h1 class="mt-4 text-center">{{ post.title | title }}</h1>
+    <br>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card my-4">
+                <div class="card-body">
+                    <!-- Title -->
+                    <h1 class="mt-4 text-center">{{ post.title | title }}</h1>
 
-      <hr class='dashed'>
-      <!-- Date/Time -->
-      <p>Posted on {{ post.timestamp }}</p>
-      {% if post.image %}
+                    <hr class='dashed'>
+                    <!-- Date/Time -->
+                    <p>Posted on {{ post.timestamp }}</p>
+                    {% if post.image %}
 
-      <hr class='dashed'>
+                    <hr class='dashed'>
 
-      <!-- Preview Image -->
-      <img class="img-fluid rounded" src="{{ post.image.url }}" alt="{{ post.title }} image">
-      {% endif %}
-      <hr class='dashed'>
+                    <!-- Preview Image -->
+                    <img class="img-fluid rounded" src="{{ post.image.url }}" alt="{{ post.title }} image"> {% endif %}
+                    <hr class='dashed'>
 
-      <!-- Post Content -->
-      <div class="">{{ post.content }}</div>
-      <hr class='dashed'>
-      <!-- Comments Form -->
-      <div class="card my-4">
-        <h5 class="card-header">Leave a Comment:</h5>
-        <div class="card-body">
-          <form>
-            <div class="form-group">
-              <textarea class="form-control" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
-        </div>
-      </div>
+                    <!-- Post Content -->
+                    <div class="">{{ post.content }}</div>
+                    <hr class="dashed">
+                    <!--  Comment -->
+                    <div class="container bootstrap snippet">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="blog-comment">
+                                    <h4 class="text-success">Leave A Comment</h3>
 
-      <!--  Comment -->
-      <hr class="dashed">
-      <button class="getComment"> comments load</button>
-
-        <div class="container bootstrap snippet">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="blog-comment">
-                <h3 class="text-success">Comments</h3>
-                <hr/>
+                <!-- form for new commment -->
+                <form action="" id="commenti"  method="post">
+                  {% csrf_token %}
+                  {{ comment_form|crispy }}
+                  <button type="submit" class="btn btn-primary"> comment </button>
+                </form>
+                <p id="form_mgs"></p>
+                <hr class="dashed">
                 <ul id="comments" class="comments"> 
+                  <center><img src="https://lingojam.com/img/loading_nice.gif" height="100px"></center>
                 </ul>
               </div>
               </div>
             </div>
         </div>
-  
+
       </div>
     </div>
     <br/><br/>
@@ -127,21 +119,67 @@
 <!-- <script type="text/javascript" src="{% static '/js/ang-app/post-details.js' %}"></script> -->
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    $(".getComment").click(function(){
-        $.ajax({
-            method: "GET",
-            url: "/comments/{{ post.id }}/",
-            success: function (data) {
-                document.getElementById("comments").innerHTML=data;
-            },
-            error: function(data){
-                console.log("error")
-                console.log(data)
-            }
-        })
-    });
-  });
 
+function get_comments() {
+  $.ajax({
+      method: "GET",
+      url: "/comments/{{ post.id }}/",
+      success: function (data) {
+          document.getElementById("comments").innerHTML=data;
+      },
+      error: function(data){
+          console.log("error")
+          console.log(data)
+      }
+  })
+}
+
+
+function reply(fid) {
+  var ffid="#p-"+fid
+  $(ffid).slideToggle();
+  var url='/comments/{{ post.slug }}/'+fid;
+  $.ajax({
+    type: "GET",
+    url: url,
+    data: $("#commenti").serialize(), 
+    success: function(data)
+    {
+      $(ffid).html(data);
+    }
+  });
+}
+
+$(document).on('click', 'button', function (e) {
+  var fid = "#"+$(this).parents('form:first').attr('id');
+  var url = "/api/comments/create/"; 
+  $.ajax({
+         type: "POST",
+         url: url,
+         data: $(fid).serialize(), 
+         success: function(data)
+         {
+            get_comments();
+            $(fid).closest('form').find("input[type=text], textarea").val("");
+         }
+       });
+  e.preventDefault(); 
+  
+});
+
+function delete_comment(url) {
+  alert(url);
+ $.ajax({
+         type: "DELETE",
+         url: url,
+         contentType: 'application/json',
+         success: function(data)
+         {
+            get_comments();
+         }
+       });
+}
+
+$(document).ready(get_comments);
 </script>
 {% endblock %}

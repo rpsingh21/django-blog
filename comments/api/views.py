@@ -50,3 +50,8 @@ class CommentEditOrDeleteAPIView(DestroyModelMixin, UpdateModelMixin, RetrieveAP
 	def delete (self,request,*arg,**kwarg):
 		return self.destroy(request, *arg, **kwarg)
 
+class CommentDestroyAPIView(DestroyAPIView):
+	queryset = Comments.objects.all()
+	serializer_class= CommentsCreateSerializer
+	lookup_field = "pk"
+

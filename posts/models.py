@@ -105,6 +105,12 @@ class Posts(models.Model):
 	def get_absolute_url(self):
 		return reverse("posts:detail", kwargs={"slug": self.slug})
 
+	@property
+	def get_content_type(self):
+		instance = self
+		content_type = ContentType.objects.get_for_model(instance.__class__)
+		return content_type
+
 
 def create_slug(instance, new_slug=None):
 	slug = slugify(instance.title)
