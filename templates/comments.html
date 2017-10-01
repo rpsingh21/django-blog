@@ -1,0 +1,55 @@
+
+{% load my_filters %}
+{% for comment in comments %}
+<li class="clearfix root_block">
+  <img src="https://bootdey.com/img/Content/avatar/avatar{{ comment.user.id|moduler }}.png" class="avatar" alt="">
+  <div class="post-comments">
+      <p class="meta">
+      	<a href="#">
+      		{% if comment.user.first_name %}
+      		{{ comment.user.first_name }} {{ comment.user.last_name }}
+      		{% else %}
+      		{{ comment.user }}
+      		{% endif %}
+      	</a> 
+      	<small> {{ comment.timestamp|timesince }} </small>
+      </p>
+      <div class="comment_content">
+         <p>{{ comment.content }}</p>
+         <div class="comment_action">
+         	<span>
+         		<a href="#">
+         			<i class="fa fa-heart-o " aria-hidden="true"> </i>
+         			<span> {{ comment.activity.get_favorites.count }} votes </span> 
+         		</a>
+         	</span>
+         	 | 
+         	<span>
+         		<a href="#">
+         			<i class="fa fa-caret-up fa-lg" aria-hidden="true"> </i>
+         			<span> {{ comment.activity.get_up_votes.count }} votes </span> 
+         		</a>
+         	</span>
+         	 | 
+         	<span>
+         		<a href="#">
+         			<i class="fa fa-caret-down fa-lg" aria-hidden="true"> </i>
+         			<span> {{ comment.activity.get_down_votes.count }} votes </span> 
+         		</a>
+         	</span>
+         	 | 
+         	<span>
+         		<a href="#">
+         			<i class="fa fa-comments-o fa-lg" aria-hidden="true"> </i>
+         			<span> reply </span> 
+         		</a>
+         	</span>
+
+         </div>
+      </div>
+  </div>
+  <ul class="comments">
+      {{ comment.childer|comment_reply }}
+  </ul>
+</li>
+{% endfor %}

@@ -22,6 +22,24 @@ class Tags(models.Model):
 	def __str__(self):
 		return self.name
 
+class ActivitysManager(models.Manager):
+	def get_likes(self):
+		likes = super(ActivitysManager, self).filter(activity_type='L')
+		return likes
+
+	def get_favorites(self):
+		likes = super(ActivitysManager, self).filter(activity_type='F')
+		return likes
+
+	def get_up_votes(self):
+		likes = super(ActivitysManager, self).filter(activity_type='U')
+		return likes
+
+	def get_down_votes(self):
+		likes = super(ActivitysManager, self).filter(activity_type='D')
+		return likes
+
+
 class Activitys(models.Model):
 	FAVORITE = 'F'
 	LIKE = 'L'
@@ -42,6 +60,8 @@ class Activitys(models.Model):
 	content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
 	object_id = models.PositiveIntegerField()
 	content_object = GenericForeignKey('content_type','object_id')
+
+	objects = ActivitysManager()
 
 	class Meta:
 		verbose_name_plural = "Activitys"
