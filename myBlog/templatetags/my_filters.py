@@ -3,9 +3,10 @@ from django.template.loader import get_template
 
 register = template.Library()
 
-@register.filter(name='comment_reply')
-def comment_reply(comments):
+@register.simple_tag
+def comment_reply(comments,request):
 	context = {
+		'request':request,
 		'comments':comments
 	}
 	template = get_template('comments.html')
@@ -14,4 +15,4 @@ def comment_reply(comments):
 
 @register.filter(name='moduler')
 def moduler(value):
-	return value%8+1
+	return value%9+1

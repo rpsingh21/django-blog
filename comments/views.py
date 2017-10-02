@@ -21,7 +21,8 @@ def reply_form(request,slug,parent_id):
 	}
 	comment_form = CommentForm(request.POST or None,initial=initial_data)
 	context ={
-		'comment_form':comment_form
+		'comment_form':comment_form,
+		"parent_id":parent_id,
 	}
 	return render(request,'reply_form.html',context)
 

@@ -1,4 +1,6 @@
 {% load crispy_forms_tags %}
 {% csrf_token %}
 {{ comment_form|crispy }}
-<span><button type="submit" class="btn btn-primary"> reply </button> <a href="javascript:c('{{ comment.id }}">cancel</a></span>
+<span>
+<button type="submit" class="btn btn-primary submit-btn"> reply </button> <a href="javascript:get_edit_form('#p-{{ parent_id }}">cancel</a>
+</span>

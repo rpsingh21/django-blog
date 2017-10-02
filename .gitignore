@@ -13,3 +13,4 @@ tests/.coverage
 build/
 tests/report/
 migrations
+db.sqlite3

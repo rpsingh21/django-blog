@@ -37,7 +37,7 @@
                 <form action="" id="commenti"  method="post">
                   {% csrf_token %}
                   {{ comment_form|crispy }}
-                  <button type="submit" class="btn btn-primary"> comment </button>
+                  <button type="submit" class="btn btn-primary submit-btn"> comment </button>
                 </form>
                 <p id="form_mgs"></p>
                 <hr class="dashed">
@@ -116,7 +116,6 @@
 
 {% endblock %}
 {% block ang %}
-<!-- <script type="text/javascript" src="{% static '/js/ang-app/post-details.js' %}"></script> -->
 
 <script type="text/javascript">
 
@@ -142,7 +141,6 @@ function reply(fid) {
   $.ajax({
     type: "GET",
     url: url,
-    data: $("#commenti").serialize(), 
     success: function(data)
     {
       $(ffid).html(data);
@@ -150,7 +148,7 @@ function reply(fid) {
   });
 }
 
-$(document).on('click', 'button', function (e) {
+$(document).on('click', '.submit-btn', function (e) {
   var fid = "#"+$(this).parents('form:first').attr('id');
   var url = "/api/comments/create/"; 
   $.ajax({
@@ -167,17 +165,59 @@ $(document).on('click', 'button', function (e) {
   
 });
 
+$(document).on('click', '.update-btn', function (e) {
+  var fid = "#"+$(this).parents('form:first').attr('id');
+  var url = $(this).parents('form:first').attr('action');
+  // alert(url);
+  $.ajax({
+         type: "PUT",
+         url: url,
+         data: $(fid).serialize(), 
+         beforeSend: function(xhr) {
+              xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+          },
+         success: function(data)
+         {
+            get_comments();
+            // $(fid).closest('form').find("input[type=text], textarea").val("");
+         }
+       });
+  e.preventDefault(); 
+  
+});
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 function delete_comment(url) {
-  alert(url);
  $.ajax({
          type: "DELETE",
          url: url,
-         contentType: 'application/json',
+         beforeSend: function(xhr) {
+              xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+          },
          success: function(data)
          {
             get_comments();
          }
        });
+}
+
+function get_edit_form(arg) {
+  $(arg).fadeToggle();
 }
 
 $(document).ready(get_comments);

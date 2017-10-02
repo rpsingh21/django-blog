@@ -8,6 +8,10 @@ from posts.models import Posts, Activitys
 
 # 	COMMENT MANAGER 
 class CommentsManerger(models.Manager):
+	def get_all(self):
+		commnets=super(CommentsManerger,self)
+		return commnets
+		
 	def all(self):
 		commnets=super(CommentsManerger,self).filter(parent=None)
 		return commnets
@@ -49,8 +53,8 @@ class Comments(models.Model):
 
 	activity = GenericRelation(Activitys ,related_query_name='Comment-likes')
 
-	updated = models.DateTimeField(auto_now_add=True)
-	timestamp = models.DateTimeField(auto_now=True)
+	updated = models.DateTimeField(auto_now=True)
+	timestamp = models.DateTimeField(auto_now_add=True)
 
 	objects = CommentsManerger()
 	class Meta:
