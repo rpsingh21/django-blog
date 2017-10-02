@@ -40,10 +40,13 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'rest_framework',
+    'pagedown',
+    'markdown_deux',
 
     'posts',
     'comments',
-    'account'
+    'account',
+    'activitys',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +149,7 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     )
 }
+
+
+PAGEDOWN_WIDGET_CSS = ('pagedown/demo/browser/demo.css','css/pagedown.css')
+

@@ -3,7 +3,9 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
-from posts.models import Posts, Activitys
+from activitys.models import Activitys
+from posts.models import Posts
+
 # Create your models here.
 
 # 	COMMENT MANAGER 
@@ -51,7 +53,7 @@ class Comments(models.Model):
 	object_id = models.PositiveIntegerField()
 	content_object = GenericForeignKey('content_type','object_id')
 
-	activity = GenericRelation(Activitys ,related_query_name='Comment-likes')
+	activitys = GenericRelation(Activitys ,related_query_name='activitys')
 
 	updated = models.DateTimeField(auto_now=True)
 	timestamp = models.DateTimeField(auto_now_add=True)

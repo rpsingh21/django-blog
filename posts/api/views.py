@@ -7,7 +7,7 @@ from rest_framework.generics import (
 	RetrieveUpdateAPIView
 	)
 
-from posts.models import Posts
+from posts.models import Posts, Activitys
 
 from .serializers import (
 	PostSerializer,

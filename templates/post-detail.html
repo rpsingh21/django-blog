@@ -1,5 +1,6 @@
 {% extends "base.html" %} 
 {% load crispy_forms_tags %}
+{% load markdown_deux_tags %}
 <!-- Page Content -->
 {% load staticfiles %} {% block content %}
 <!-- Post Content Column -->
@@ -24,7 +25,7 @@
                     <hr class='dashed'>
 
                     <!-- Post Content -->
-                    <div class="">{{ post.content }}</div>
+                    <div class="">{{ post.content|markdown }}</div>
                     <hr class="dashed">
                     <!--  Comment -->
                     <div class="container bootstrap snippet">
@@ -179,11 +180,9 @@ $(document).on('click', '.update-btn', function (e) {
          success: function(data)
          {
             get_comments();
-            // $(fid).closest('form').find("input[type=text], textarea").val("");
          }
        });
   e.preventDefault(); 
-  
 });
 
 function getCookie(cname) {
@@ -203,6 +202,9 @@ function getCookie(cname) {
 }
 
 function delete_comment(url) {
+  if(!confirm("delete it ?")){
+        return 0;
+    }
  $.ajax({
          type: "DELETE",
          url: url,
@@ -217,7 +219,7 @@ function delete_comment(url) {
 }
 
 function get_edit_form(arg) {
-  $(arg).fadeToggle();
+  $(arg).slideToggle();
 }
 
 $(document).ready(get_comments);

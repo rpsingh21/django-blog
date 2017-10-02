@@ -19,21 +19,21 @@
          	<span>
          		<a href="#">
          			<i class="fa fa-heart-o " aria-hidden="true"> </i>
-         			<span> {{ comment.activity.get_favorites.count }} votes </span> 
+         			<span> {{ comment.activitys.get_favorites.count }} votes </span> 
          		</a>
          	</span>
          	 | 
          	<span>
          		<a href="#">
          			<i class="fa fa-caret-up fa-lg" aria-hidden="true"> </i>
-         			<span> {{ comment.activity.get_up_votes.count }} votes </span> 
+         			<span> {{ comment.activitys.get_up_votes.count }} votes </span> 
          		</a>
          	</span>
          	 | 
          	<span>
          		<a href="#">
          			<i class="fa fa-caret-down fa-lg" aria-hidden="true"> </i>
-         			<span> {{ comment.activity.get_down_votes.count }} votes </span> 
+         			<span> {{ comment.activitys.get_down_votes.count }} votes </span> 
          		</a>
          	</span>
          	 | 
@@ -80,11 +80,4 @@
       {% comment_reply comment.childer request  %}
   </ul>
 </li>
-<script type="text/javascript">
-$("a").click(function(e)
-{
-  e.preventDefault();
-  alert("hello")
-});
-</script>
 {% endfor %}
