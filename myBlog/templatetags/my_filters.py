@@ -9,7 +9,7 @@ def comment_reply(comments,request):
 		'request':request,
 		'comments':comments
 	}
-	template = get_template('comments.html')
+	template = get_template('comments/core_comments.html')
 	html  = template.render(context)
 	return html
 

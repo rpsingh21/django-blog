@@ -1,0 +1,15 @@
+{% load my_filters %}
+{% load crispy_forms_tags %}
+<div class="blog-comment">
+    <h4 class="text-success">Leave A Comment</h4>
+    <!-- form for new commment -->
+    <form action="" id="commenti" method="post">
+        {% csrf_token %} {{ comment_form|crispy }}
+        <button type="submit" class="btn btn-primary submit-btn"> comment </button>
+    </form>
+    <p id="form_mgs"></p>
+    <hr class="dashed">
+    <div id="comments" class="comments">
+        {% comment_reply comments request %}
+    </div>
+</div>

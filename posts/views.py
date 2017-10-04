@@ -1,7 +1,9 @@
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 
 from .models import Posts
+from comments.models import Comments
 from .forms import PostForms
 from comments.forms import CommentForm
 
@@ -17,15 +19,12 @@ def post_list(request):
 
 def post_detail(request,slug):
 	post = get_object_or_404(Posts,slug=slug)
-	initial_data = {
-		"content_type": post.get_content_type,
-		"slug": post.slug
-	}
-	comment_form = CommentForm(request.POST or None,initial=initial_data)
+	content_type = ContentType.objects.filter(model='posts').first()
+	comments_count = Comments.objects.get_all().filter(object_id=post.id,content_type=content_type).count()
 	context={
 		'title':post.title,
 		'post':post,
-		'comment_form':comment_form
+		'comments_count':comments_count,
 	}
 	return render(request,"post-detail.html",context)
 

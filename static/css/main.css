@@ -21,8 +21,6 @@ hr.dashed {
 	background-color: white;
 }
 
-/*style for footer in bottem */
-
 html {
   height: 100%;
   box-sizing: border-box;
@@ -52,16 +50,17 @@ body {
   text-align: center;
 }
 
+.card_header{
+  color: #aaa;
+}
+.card_header span{
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.card_header i{
+  margin-right: 0.3rem;
+}
 
-
-/* comments css */
-
-/*hr {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 0;
-    border-top: 1px solid #FFFFFF;
-}*/
 a {
     color: #82b440;
     text-decoration: none;
@@ -89,6 +88,7 @@ a {
       border-radius: 4px;
 }
 
+
 .blog-comment img.avatar {
   position: relative;
   float: left;
@@ -100,28 +100,25 @@ a {
 
 .blog-comment .post-comments{
   border-left: 1px solid #eee;
-    /*margin-bottom: 10px;*/
-    margin-left: 45px;
+  /*margin-bottom: 10px;*/
+  margin-left: 45px;
   margin-right: 0px;
-    padding: 10px 20px;
-    position: relative;
-    /*-webkit-border-radius: 4px;
-       -moz-border-radius: 4px;
-         -o-border-radius: 4px;
-        border-radius: 4px;*/
+  padding: 5px 10px;
+  position: relative;
   background: #fff;
-  /*color: #6b6e80;*/
   position: relative;
 }
 
 .blog-comment .meta {
   font-size: 14px;
- /* padding-bottom: 8px;
-  margin-bottom: 10px !important;*/
-  /*border-bottom: 1px solid #eee;*/
 }
+
 .blog-comment .meta a{
   font-weight: 600;
+}
+
+.blog-comment .meta small {
+    color: #aaa;
 }
 
 .blog-comment p{
@@ -148,10 +145,6 @@ a {
   margin-left: 45px;
 }
 
-/*.root_block{
-  border-left: 1px solid #eee;
-}
-*/
 .blog-comment-form{
   padding-left: 15%;
   padding-right: 15%;

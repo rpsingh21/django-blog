@@ -1,5 +1,5 @@
-{% extends "base.html" %} 
-{% load crispy_forms_tags %}
+{% extends "base.html" %}
+{% load crispy_forms_tags %} 
 {% load markdown_deux_tags %}
 <!-- Page Content -->
 {% load staticfiles %} {% block content %}
@@ -12,12 +12,26 @@
                 <div class="card-body">
                     <!-- Title -->
                     <h1 class="mt-4 text-center">{{ post.title | title }}</h1>
-
                     <hr class='dashed'>
-                    <!-- Date/Time -->
-                    <p>Posted on {{ post.timestamp }}</p>
+                    <div class="text-center card_header">
+                        <span>
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        {{ post.timestamp|date:"M d Y" }} 
+                      </span>
+                        <span>
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        {% if post.user.first_name %}
+                        {{ post.user.first_name }} {{ post.user.last_name }}
+                        {% else %}
+                        {{ post.user }}
+                        {% endif %}
+                      </span>
+                        <span>
+                        <i class="fa fa-comments" aria-hidden="true"></i>
+                        {{ comments_count }}
+                      </span>
+                    </div>
                     {% if post.image %}
-
                     <hr class='dashed'>
 
                     <!-- Preview Image -->
@@ -32,212 +46,207 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="blog-comment">
-                                    <h4 class="text-success">Leave A Comment</h3>
+                                    <div id="comments" class="comments">
+                                        <center>
+                                            <img src="https://lingojam.com/img/loading_nice.gif" height="100px">
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- form for new commment -->
-                <form action="" id="commenti"  method="post">
-                  {% csrf_token %}
-                  {{ comment_form|crispy }}
-                  <button type="submit" class="btn btn-primary submit-btn"> comment </button>
-                </form>
-                <p id="form_mgs"></p>
-                <hr class="dashed">
-                <ul id="comments" class="comments"> 
-                  <center><img src="https://lingojam.com/img/loading_nice.gif" height="100px"></center>
-                </ul>
-              </div>
-              </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+        </div>
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+            <!-- Search Widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Search</h5>
+                <div class="card-body">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                          <button class="btn btn-secondary" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Categories Widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Categories</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="#">Web Design</a>
+                                </li>
+                                <li>
+                                    <a href="#">HTML</a>
+                                </li>
+                                <li>
+                                    <a href="#">Freebies</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="#">JavaScript</a>
+                                </li>
+                                <li>
+                                    <a href="#">CSS</a>
+                                </li>
+                                <li>
+                                    <a href="#">Tutorials</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Side Widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Side Widget</h5>
+                <div class="card-body">
+                    You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                </div>
             </div>
         </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
 
-      </div>
-    </div>
-    <br/><br/>
-    </div>
-  <!-- Sidebar Widgets Column -->
-  <div class="col-md-4">
-    <!-- Search Widget -->
-    <div class="card my-4">
-      <h5 class="card-header">Search</h5>
-      <div class="card-body">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for...">
-          <span class="input-group-btn">
-            <button class="btn btn-secondary" type="button">Go!</button>
-          </span>
-        </div>
-      </div>
-    </div>
-    <!-- Categories Widget -->
-    <div class="card my-4">
-      <h5 class="card-header">Categories</h5>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-lg-6">
-            <ul class="list-unstyled mb-0">
-              <li>
-                <a href="#">Web Design</a>
-              </li>
-              <li>
-                <a href="#">HTML</a>
-              </li>
-              <li>
-                <a href="#">Freebies</a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-lg-6">
-            <ul class="list-unstyled mb-0">
-              <li>
-                <a href="#">JavaScript</a>
-              </li>
-              <li>
-                <a href="#">CSS</a>
-              </li>
-              <li>
-                <a href="#">Tutorials</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Side Widget -->
-    <div class="card my-4">
-      <h5 class="card-header">Side Widget</h5>
-      <div class="card-body">
-        You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-      </div>
-    </div>
-  </div>
-  </div>
-  <!-- /.row -->
-  </div>
-  <!-- /.container -->
-
-{% endblock %}
-{% block ang %}
-
+{% endblock %} {% block ang %}
 <script type="text/javascript">
-
-function get_comments() {
-  $.ajax({
-      method: "GET",
-      url: "/comments/{{ post.id }}/",
-      success: function (data) {
-          document.getElementById("comments").innerHTML=data;
-      },
-      error: function(data){
-          console.log("error")
-          console.log(data)
-      }
-  })
-}
-
-
-function reply(fid) {
-  var ffid="#p-"+fid
-  $(ffid).slideToggle();
-  var url='/comments/{{ post.slug }}/'+fid;
-  $.ajax({
-    type: "GET",
-    url: url,
-    success: function(data)
-    {
-      $(ffid).html(data);
+    //  commet js  -----------------------------------------------------------------------------
+    function get_comments() {
+        $.ajax({
+            method: "GET",
+            url: "/comments/{{ post.id }}/{{ post.slug }}/",
+            success: function(data) {
+                document.getElementById("comments").innerHTML = data;
+            },
+            error: function(data) {
+                console.log("error")
+                console.log(data)
+            }
+        })
     }
-  });
-}
+    {% if request.user.is_authenticated %}
+    function reply(fid) {
+        var ffid = "#p-" + fid
+        $(ffid).slideToggle();
+        var url = '/comments/{{ post.slug }}/' + fid;
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function(data) {
+                $(ffid).html(data);
+            }
+        });
+    }
 
-$(document).on('click', '.submit-btn', function (e) {
-  var fid = "#"+$(this).parents('form:first').attr('id');
-  var url = "/api/comments/create/"; 
-  $.ajax({
-         type: "POST",
-         url: url,
-         data: $(fid).serialize(), 
-         success: function(data)
-         {
-            get_comments();
-            $(fid).closest('form').find("input[type=text], textarea").val("");
-         }
-       });
-  e.preventDefault(); 
-});
+    $(document).on('click', '.submit-btn', function(e) {
+        var fid = "#" + $(this).parents('form:first').attr('id');
+        var url = "/api/comments/create/";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $(fid).serialize(),
+            success: function(data) {
+                get_comments();
+                $(fid).closest('form').find("input[type=text], textarea").val("");
+            }
+        });
+        e.preventDefault();
+    });
 
-$(document).on('click', '.update-btn', function (e) {
-  var fid = "#"+$(this).parents('form:first').attr('id');
-  var url = $(this).parents('form:first').attr('action');
-  // alert(url);
-  $.ajax({
-         type: "PUT",
-         url: url,
-         data: $(fid).serialize(), 
-         beforeSend: function(xhr) {
-              xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
-          },
-         success: function(data)
-         {
-            get_comments();
-         }
-       });
-  e.preventDefault(); 
-});
+    $(document).on('click', '.update-btn', function(e) {
+        var fid = "#" + $(this).parents('form:first').attr('id');
+        var url = $(this).parents('form:first').attr('action');
+        // alert(url);
+        $.ajax({
+            type: "PUT",
+            url: url,
+            data: $(fid).serialize(),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+            },
+            success: function(data) {
+                get_comments();
+            }
+        });
+        e.preventDefault();
+    });
 
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
         }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
+        return "";
+    }
+
+    function delete_comment(url) {
+        if (!confirm("delete it ?")) {
+            return 0;
         }
+        $.ajax({
+            type: "DELETE",
+            url: url,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+            },
+            success: function(data) {
+                get_comments();
+            }
+        });
     }
-    return "";
-}
 
-function delete_comment(url) {
-  if(!confirm("delete it ?")){
-        return 0;
+    $(document).on('click', '.activity-btn', function(e) {
+        e.preventDefault();
+        url = $(this).attr("link");
+        $.ajax({
+            type: 'POST',
+            url: url,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+            },
+            success: function(data) {
+                $.notify("vote update "+data, {
+                    animate: {
+                        enter: 'animated lightSpeedIn',
+                        exit: 'animated lightSpeedOut'
+                    }
+                });
+                get_comments();
+            }
+        });
+    });
+
+    function get_edit_form(arg) {
+        $(arg).slideToggle();
     }
- $.ajax({
-         type: "DELETE",
-         url: url,
-         beforeSend: function(xhr) {
-              xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
-          },
-         success: function(data)
-         {
-            get_comments();
-         }
-       });
-}
-
-$(document).on('click', '.activity-btn', function (e) {
-  e.preventDefault();
-  url = $(this).attr("link");
-  $.ajax({
-         type: 'POST',
-         url: url, 
-         beforeSend: function(xhr) {
-              xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
-          },
-         success: function(data)
-         {
-            get_comments();
-         }
-       });
-});
-
-
-function get_edit_form(arg) {
-  $(arg).slideToggle();
-}
-
-$(document).ready(get_comments);
+    {% else %}
+    $(document).on('click', '.activity-btn', function(e) {
+        e.preventDefault();
+        $.notify(" login first then vote it ");
+    });
+    {% endif %}
+    $(document).ready(get_comments);
 </script>
 {% endblock %}

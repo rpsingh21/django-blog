@@ -1,0 +1,82 @@
+{% load my_filters %}
+{% load markdown_deux_tags %}
+{% for comment in comments %}
+{% if request.user.is_authenticated %}
+{% user_activity comment request as activity %}
+{% endif %}
+<ul class="comments">
+  <li class="clearfix root_block">
+    <img src="https://bootdey.com/img/Content/avatar/avatar{{ comment.user.id|moduler }}.png" class="avatar" alt="{{ comment.user }} profile pic">
+    <div class="post-comments">
+        <p class="meta">
+        	<a href="#">
+            {% if comment.user.first_name %}
+            {{ comment.user.first_name }} {{ comment.user.last_name }}
+            {% else %}
+            {{ comment.user }}
+            {% endif %}
+        	</a> 
+        	<small> {{ comment.timestamp|timesince }} </small>
+        </p>
+        <div class="comment_content">
+           <p>{{ comment.content }}</p>
+           <div class="comment_action">
+           	<span class="text-info">
+           		<a class="activity-btn" href="#"  link="{% url 'comments:comment_activity' comment.id 'F' %}">
+           			<i class="fa fa-heart {% if activity.activity_type == 'F' %} text-danger {% endif %}" aria-hidden="true"> </i>
+           			<span> {{ comment.activitys.get_favorites.count }} votes </span> | 
+           		</a>
+           	</span>
+           	<span>
+           		<a class="activity-btn" href="#" link="{% url 'comments:comment_activity' comment.id 'U' %}">
+           			<small><i class="fa fa-caret-up fa-lg fa-2x {% if activity.activity_type == 'U' %} text-success {% endif %}" aria-hidden="true"> </i></small>
+           			<span> {{ comment.activitys.get_up_votes.count }} votes </span> | 
+           		</a>
+           	</span>
+           	<span>
+           		<a class="activity-btn" href="#" link="{% url 'comments:comment_activity' comment.id 'D' %}">
+           			<small><i class="fa fa-caret-down fa-lg fa-2x {% if activity.activity_type == 'D' %} text-warning {% endif %}" aria-hidden="true"> </i></small>
+           			<span> {{ comment.activitys.get_down_votes.count }} votes </span> | 
+           		</a>
+           	</span>
+           	<span>
+           		<a href="javascript:reply('{{ comment.id }}')" class="reply">
+           			<i class="fa fa-comments-o fa-lg" aria-hidden="true"> </i>
+           			<span> reply </span> 
+           		</a>
+           	</span>
+             {% if request.user == comment.user %}
+              <span>
+                <a href="javascript:get_edit_form('#pe-{{ comment.id }}');"> | 
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  edit | 
+                </a> 
+              </span>
+             <span>
+                <a href="javascript:delete_comment('{% url 'comment-api:delete' comment.id %}')">
+                  <small><i class="fa fa-times fa-lg" aria-hidden="true"></i></small>
+                  <span>delete</span> 
+                </a>
+              </span>
+              <span>
+                <form method="PUT" action="{% url 'comment-api:update' comment.id %}" style="display: none;" id="pe-{{ comment.id }}">
+                  <div id="div_id_content" class="form-group"> 
+                    <textarea name="content" required class="textarea form-control" cols="" rows="3">{{ comment.content }}
+                    </textarea>  
+                  </div>
+                  <button type="submit" class="btn btn-primary update-btn"> update </button>
+                  <a class="" href="javascript:get_edit_form('#pe-{{ comment.id }}')"> cancel </a>
+                  <br><br>
+                </form>
+              </span>
+            {% endif %}
+            <span>
+              <form style="display: none;" id="p-{{ comment.id }}"><center><img src="https://lingojam.com/img/loading_nice.gif" height="40px"></center></form>
+            </span>
+           </div>
+        </div>
+    </div>
+    {% comment_reply comment.childer request  %}
+  </li>
+</ul>
+{% endfor %}

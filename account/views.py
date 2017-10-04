@@ -21,7 +21,7 @@ def login_view(request):
 			login(request, user)
 			if next:
 				return redirect(next)
-			return redirect("/")
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 	return render(request , "login.html",{"title":"Login","form":form});
 
 def register_view(request):
