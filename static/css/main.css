@@ -134,6 +134,10 @@ a {
   margin-left: 14px;
   font-size: 14px;
 }
+.comment_action a{
+  color: #aaa;
+  font-size: 12px;
+}
 .comment_content a{
   text-decoration: none;
   color:;

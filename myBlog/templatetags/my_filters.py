@@ -16,3 +16,10 @@ def comment_reply(comments,request):
 @register.filter(name='moduler')
 def moduler(value):
 	return value%9+1
+
+@register.simple_tag(name='user_activity')
+def user_activity(comment, request):
+	activity = comment.activitys.filter(user=request.user)
+	if activity.exists():
+		return activity.first()
+	return None

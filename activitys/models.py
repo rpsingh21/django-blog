@@ -22,8 +22,6 @@ class ActivitysManager(models.Manager):
 		likes = super(ActivitysManager, self).filter(activity_type='D')
 		return likes
 
-
-
 class Activitys(models.Model):
 	FAVORITE = 'F'
 	LIKE = 'L'

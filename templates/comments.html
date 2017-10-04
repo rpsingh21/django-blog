@@ -1,42 +1,41 @@
 {% load my_filters %}
+{% load markdown_deux_tags %}
 {% for comment in comments %}
+{% user_activity comment request as activity %}
 <li class="clearfix root_block">
   <img src="https://bootdey.com/img/Content/avatar/avatar{{ comment.user.id|moduler }}.png" class="avatar" alt="{{ comment.user }} profile pic">
   <div class="post-comments">
       <p class="meta">
       	<a href="#">
-      		{% if comment.user.first_name %}
-      		{{ comment.user.first_name }} {{ comment.user.last_name }}
-      		{% else %}
-      		{{ comment.user }}
-      		{% endif %}
+          {% if comment.user.first_name %}
+          {{ comment.user.first_name }} {{ comment.user.last_name }}
+          {% else %}
+          {{ comment.user }}
+          {% endif %}
       	</a> 
       	<small> {{ comment.timestamp|timesince }} </small>
       </p>
       <div class="comment_content">
          <p>{{ comment.content }}</p>
          <div class="comment_action">
-         	<span>
-         		<a href="#">
-         			<i class="fa fa-heart-o " aria-hidden="true"> </i>
-         			<span> {{ comment.activitys.get_favorites.count }} votes </span> 
+         	<span class="text-info">
+         		<a class="activity-btn" href="#"  link="{% url 'comments:comment_activity' comment.id 'F' %}">
+         			<i class="fa fa-heart {% if activity.activity_type == 'F' %} text-danger {% endif %}" aria-hidden="true"> </i>
+         			<span> {{ comment.activitys.get_favorites.count }} votes </span> | 
          		</a>
          	</span>
-         	 | 
          	<span>
-         		<a href="#">
-         			<i class="fa fa-caret-up fa-lg" aria-hidden="true"> </i>
-         			<span> {{ comment.activitys.get_up_votes.count }} votes </span> 
+         		<a class="activity-btn" href="#" link="{% url 'comments:comment_activity' comment.id 'U' %}">
+         			<i class="fa fa-caret-up fa-lg fa-2x {% if activity.activity_type == 'U' %} text-success {% endif %}" aria-hidden="true"> </i>
+         			<span> {{ comment.activitys.get_up_votes.count }} votes </span> | 
          		</a>
          	</span>
-         	 | 
          	<span>
-         		<a href="#">
-         			<i class="fa fa-caret-down fa-lg" aria-hidden="true"> </i>
-         			<span> {{ comment.activitys.get_down_votes.count }} votes </span> 
+         		<a class="activity-btn" href="#" link="{% url 'comments:comment_activity' comment.id 'D' %}">
+         			<i class="fa fa-caret-down fa-lg fa-2x {% if activity.activity_type == 'D' %} text-warning {% endif %}" aria-hidden="true"> </i>
+         			<span> {{ comment.activitys.get_down_votes.count }} votes </span> | 
          		</a>
          	</span>
-         	 | 
          	<span>
          		<a href="javascript:reply('{{ comment.id }}')" class="reply">
          			<i class="fa fa-comments-o fa-lg" aria-hidden="true"> </i>
@@ -44,14 +43,12 @@
          		</a>
          	</span>
            {% if request.user == comment.user %}
-            | 
             <span>
-              <a href="javascript:get_edit_form('#pe-{{ comment.id }}');">
+              <a href="javascript:get_edit_form('#pe-{{ comment.id }}');"> | 
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                edit 
-              </a>
+                edit | 
+              </a> 
             </span>
-            | 
            <span>
               <a href="javascript:delete_comment('{% url 'comment-api:delete' comment.id %}')">
                 <i class="fa fa-bitbucket" aria-hidden="true"></i>

@@ -163,7 +163,6 @@ $(document).on('click', '.submit-btn', function (e) {
          }
        });
   e.preventDefault(); 
-  
 });
 
 $(document).on('click', '.update-btn', function (e) {
@@ -217,6 +216,23 @@ function delete_comment(url) {
          }
        });
 }
+
+$(document).on('click', '.activity-btn', function (e) {
+  e.preventDefault();
+  url = $(this).attr("link");
+  $.ajax({
+         type: 'POST',
+         url: url, 
+         beforeSend: function(xhr) {
+              xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+          },
+         success: function(data)
+         {
+            get_comments();
+         }
+       });
+});
+
 
 function get_edit_form(arg) {
   $(arg).slideToggle();
