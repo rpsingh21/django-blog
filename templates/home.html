@@ -19,7 +19,7 @@
             <span>
             <i class="fa fa-calendar" aria-hidden="true"></i>
             {{ post.timestamp|date:"M d Y" }} 
-          </span>
+            </span>
             <span>
             <i class="fa fa-user" aria-hidden="true"></i>
             {% if post.user.first_name %}
@@ -65,22 +65,19 @@
               {% endfor %}
           </div>
           <div class="text-center col-sm-6">
-            <a href="#" class="btn btn-danger btn-circle btn-lg">
+            <a href="{{ post.get_absolute_url }}" name="reddit" class="btn btn-danger btn-circle social btn-lg">
               <i style="color: #fff;" class="fa fa fa-reddit-alien 2x"></i>
             </a>
-            <a href="#" class="btn w3-red btn-circle btn-lg">
-              <i class="fa fa-pinterest-square 2x"></i>
-            </a>
-            <a href="#" style="color: #fff;" class="btn btn-primary btn-circle btn-lg">
+            <a href="{{ post.get_absolute_url }}" name="facebook" style="color: #fff;" class="btn social btn-primary btn-circle btn-lg">
               <i class="fa fa-facebook"></i>
             </a>
-            <a href="#" class="btn w3-indigo btn-circle btn-lg">
+            <a href="{{ post.get_absolute_url }}" name="twitter" class="btn w3-indigo social btn-circle btn-lg">
               <i style="color: #fff;" class="fa fa-twitter 2x"></i>
             </a>
-            <a href="#" class="w3-blue btn btn-circle btn-lg">
+            <a href="{{ post.get_absolute_url }}" name="linkedin" class="w3-blue btn social btn-circle btn-lg">
               <i style="color: #fff;" class="fa fa-linkedin 5x"></i>
             </a>
-            <a href='https://plus.google.com/share?url=http://codingforentrepreneurs.com' class="btn btn-danger btn-circle btn-lg">
+            <a name="google+" href='{{ post.get_absolute_url }}' class="btn btn-danger social btn-circle btn-lg">
               <i class="fa fa-google-plus 2x"></i>
             </a>
           </div>
@@ -91,8 +88,9 @@
           <div class="text-center">
             <img src="/media/None/404.png">
             <hr class="dashed">
-            <h2> Post Not Found </h2>
-            <h3> You Get Comming Soon</h3>
+            <h2> OPPS! We Couldn’t Find this Page </h2>
+            <h3> Uh... So it looks like you brock something. The page you are looking for has up and Vanished.</h3>
+            <a href="/" class="btn centerD btn-lg btn-outline-warning"> Bring Me Back Home </a>
           </div>
         </div>
       {% endfor %}
@@ -196,6 +194,5 @@ $(document).on('click', '.page-link', function(e) {
     pageURL = "/?page="+page;
   document.location.replace(pageURL);
 });
-
 </script>
 {% endblock %}

@@ -68,9 +68,38 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     {% block ang %}
     {% endblock %}
-    
+
+    <script async defer data-pin-hover="true" data-pin-tall="true" data-pin-round="true" src="//assets.pinterest.com/js/pinit.js"></script>
     <script type="text/javascript" src="http://bootstrap-notify.remabledesigns.com/js/bootstrap-notify.min.js"></script>
-    <script type="text/javascript" src="http://bootstrap-notify.remabledesigns.com/js/app.js"></script>
+    <script type="text/javascript"> 
+      $(document).on('click','.social',function(e) {
+        e.preventDefault();
+        var title = $(this).parent().parent().parent().find("h2").text();
+        var summary=$(this).parent().parent().parent().find(".card-text").text()
+        var link =window.location.hostname+$(this).attr("href");
+        var name = $(this).attr("name");
+        var shareTitle="I'm going to learn to Code... "
+        var url =""
+        switch (name) {
+          case "facebook":
+              url="https://www.facebook.com/sharer/sharer.php?u="+link;
+              break;
+          case "twitter":
+              url="https://twitter.com/home?status="+shareTitle+" "+link;
+              break;
+          case "linkedin":
+              url ="https://www.linkedin.com/shareArticle?mini=true&url="+link+"&title="+title+"&summary="+summary+"&source=https://www.djangoproject.com/"
+              break;
+          case "google+":
+              url ="https://plus.google.com/share?url="+link;
+              break;
+          case "reddit":
+              url="http://www.reddit.com/submit?url="+link+"&title="+title;
+              break;
+          }
+          document.location.replace(url);
+      });
+    </script>
   </body>
 
 </html>
