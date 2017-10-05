@@ -30,6 +30,10 @@
                         <i class="fa fa-comments" aria-hidden="true"></i>
                         {{ comments_count }}
                       </span>
+                      <span>
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        {{ post.views|add:1 }} views 
+                      </span>
                     </div>
                     {% if post.image %}
                     <hr class='dashed'>

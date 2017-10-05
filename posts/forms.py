@@ -10,7 +10,7 @@ class PostForms(forms.ModelForm):
 		model=Posts
 		fields =[
 			'title',
-			'tag',
+			'tags',
 			'content',
 			'image',
 		]

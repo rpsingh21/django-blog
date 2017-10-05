@@ -4,10 +4,12 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import pre_save
+from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
 from activitys.models import Activitys
-
+from comments.models import Comments
+from .utils import get_read_time
 # Create your models here
 class Tags(models.Model):
 	name=models.CharField(max_length=32)
@@ -30,7 +32,7 @@ def upload_location(instance,filename):
 class Posts(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
 	title = models.CharField(max_length=160)
-	tag=models.ManyToManyField(Tags,blank=True)
+	tags = models.ManyToManyField(Tags,blank=True)
 	slug = models.SlugField(unique=True)
 	content = models.TextField()
 	image = models.ImageField(upload_to=upload_location,
@@ -39,6 +41,9 @@ class Posts(models.Model):
 							blank=True,null=True);
 	height_field=models.IntegerField(default=0)
 	width_field=models.IntegerField(default=0)
+	views=models.BigIntegerField(default=0)
+	draft = models.BooleanField(default=False)
+	read_time = models.IntegerField(default=0)
 
 	activitys = GenericRelation(Activitys ,related_query_name='activitys')
 
@@ -57,6 +62,16 @@ class Posts(models.Model):
 
 	def get_absolute_url(self):
 		return reverse("posts:detail", kwargs={"slug": self.slug})
+
+	def comments_count(self):
+		content_type = ContentType.objects.get_for_model(self.__class__)
+		return Comments.objects.filter(object_id=self.id,content_type=content_type).count()
+
+	def get_markdown(self):
+		content = self.content
+		# markdown_text = markdown(content)
+		# return mark_safe(markdown_text)
+		return content
 
 	@property
 	def get_content_type(self):
@@ -78,5 +93,9 @@ def create_slug(instance, new_slug=None):
 def pre_save_post_receiver(sender, instance, *args, **kwargs):
 	if not instance.slug:
 		instance.slug = create_slug(instance)
+	if instance.content:
+		html_string = instance.get_markdown()
+		read_time_var = get_read_time(html_string)
+		instance.read_time = read_time_var
 
 pre_save.connect(pre_save_post_receiver, sender=Posts)

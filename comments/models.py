@@ -4,7 +4,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 from activitys.models import Activitys
-from posts.models import Posts
 
 # Create your models here.
 
