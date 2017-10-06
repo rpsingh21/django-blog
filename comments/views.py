@@ -37,11 +37,34 @@ def reply_form(request,slug,parent_id):
 	return render(request,'reply_form.html',context)
 
 def comment_activity(request,id,activity_type):
+	if not request.user.is_authenticated():
+		return HttpResponse(status=401)
+	if not activity_type in ["F","D","U"]:
+		return HttpResponse(status=404)
+
+	data = 'D'
 	content_type = ContentType.objects.filter(model='comments').first()#.model_class()
 	activity = Activitys.objects.filter(object_id=id,user=request.user,content_type=content_type)
-	if activity.count()<=1:
+	if activity_type == 'F':
+		activity=activity.filter(activity_type='F')
 		if activity.exists():
-			activity.update(activity_type=activity_type)
+			activity.delete()
+		else:
+			Activitys.objects.create(
+					user=request.user,
+					activity_type=activity_type,
+					content_type=content_type,
+					object_id=id,
+					)
+			data = activity_type
+	else:
+		activity=activity.filter(activity_type__in= ['U','D'])	
+		if activity.exists():
+			if activity.first().activity_type == activity_type:
+				activity.delete()
+			else:
+				activity.update(activity_type=activity_type)
+				data = activity_type
 		else:
 			Activitys.objects.create(
 				user=request.user,
@@ -49,9 +72,8 @@ def comment_activity(request,id,activity_type):
 				content_type=content_type,
 				object_id=id,
 				)
-	else:
-		print("error")
-	return HttpResponse("success")
+			data = activity_type
+	return HttpResponse(data)
 
 def comment_delete(request,id):
 	instance = get_object_or_404(Comments,id=id)

@@ -76,27 +76,26 @@
                             </a>
                         </div>
                     </div>
-                    <hr class="dashed">
-
-                    <!--  Comment -->
-                    <div class="container bootstrap snippet">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="blog-comment">
-                                    <div id="comments" class="comments">
-                                        <center>
-                                            <img src="https://lingojam.com/img/loading_nice.gif" height="100px">
-                                        </center>
-                                    </div>
+                </div>
+            </div>
+            <!--  Comments -->
+            <div class="my-4 card"> 
+                <div class="container bootstrap snippet">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="blog-comment">
+                                <div id="comments" class="comments">
+                                    <center>
+                                        <img src="https://lingojam.com/img/loading_nice.gif" height="100px">
+                                    </center>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-            <br/>
-            <br/>
+            <br/><br>
+            <!-- /comments -->
         </div>
         <!-- Sidebar Widgets Column -->
         <div class="col-md-4">
@@ -271,12 +270,6 @@
                 xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
             },
             success: function(data) {
-                $.notify("vote update "+data, {
-                    animate: {
-                        enter: 'animated lightSpeedIn',
-                        exit: 'animated lightSpeedOut'
-                    }
-                });
                 get_comments();
             }
         });

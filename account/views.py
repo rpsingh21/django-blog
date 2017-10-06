@@ -21,8 +21,9 @@ def login_view(request):
 			login(request, user)
 			if next:
 				return redirect(next)
-			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-	return render(request , "login.html",{"title":"Login","form":form});
+			return redirect("/")
+	next = request.META.get('HTTP_REFERER')
+	return render(request , "login.html",{"title":"Login","form":form,"next":next});
 
 def register_view(request):
 	form = RegisterForm(request.POST or None)
@@ -34,7 +35,7 @@ def register_view(request):
 			user.save()
 			login(request,user)
 			return HttpResponseRedirect('/')
-	return render(request , "login.html",{"title":"Register","form":form})
+	return render(request , "login.html",{"title":"Register","form":form,"next":next})
 
 def logout_view(request):
 	logout(request)

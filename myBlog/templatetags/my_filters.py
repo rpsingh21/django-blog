@@ -20,6 +20,12 @@ def moduler(value):
 @register.simple_tag(name='user_activity')
 def user_activity(comment, request):
 	activity = comment.activitys.filter(user=request.user)
-	if activity.exists():
-		return activity.first()
-	return None
+	fav = None
+	vote = None
+	if activity.filter(activity_type='F').exists():
+		fav = 'F'
+	if activity.filter(activity_type='U').exists():
+		vote = 'U'
+	elif activity.filter(activity_type='D').exists():
+		vote = 'D'
+	return [fav,vote]

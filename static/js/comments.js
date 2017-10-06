@@ -110,3 +110,19 @@ function get_edit_form(arg) {
 }
 
 $(document).ready(get_comments);
+
+
+//  NEW API HANDLER USING JQUERY
+$(document).on('click','.activity-btn',function(event) {
+    event.preventDefault();
+    url = $(this).attr("link");
+    var current_acivity = $(this)
+    var action = activity_request(url);
+
+    // we get in action a json object 
+    /*
+        activity_type = 'F','U','D','DE'
+        'DE' == delete operations
+
+    */
+})

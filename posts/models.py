@@ -7,6 +7,8 @@ from django.db.models.signals import pre_save, post_save
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
+from markdownx.utils import markdownify
+
 from activitys.models import Activitys
 from comments.models import Comments
 from .utils import get_read_time ,conv_thumbnail
@@ -71,6 +73,8 @@ class Posts(models.Model):
 		content = self.content
 		# markdown_text = markdown(content)
 		# return mark_safe(markdown_text)
+		markdown_text = markdownify(content)
+		return mark_safe(markdown_text)
 		return content
 
 	@property
@@ -97,12 +101,6 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
 		html_string = instance.get_markdown()
 		read_time_var = get_read_time(html_string)
 		instance.read_time = read_time_var
-
-	# CREATING THUMBNAIL IMAGE
-	# print("----------------------------------------------------------------")
-	# print(instance.image.path)
-	# instance.image = get_thumbnail(instance.image,"768*1024",quality=0)
-	# instance.image = conv_thumbnail(instance.image)
 
 def post_save_post_receiver(sender,instance,*args,**kwargs):
 	conv_thumbnail(instance.image,(768,1024))

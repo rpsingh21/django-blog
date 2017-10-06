@@ -50,7 +50,7 @@
           </a>
           <br><br>
           {% endif %}
-          <p class="card-text markdown_content">{{ post.content | truncatewords_html:120 }}</p>
+          <p class="card-text markdown_content">{{ post.content | truncatewords_html:80 }}</p>
           <span class="centerD">
             <a href="{{ post.get_absolute_url }}" class=""> Read More </a>
           </span>

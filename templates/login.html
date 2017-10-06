@@ -9,7 +9,7 @@
 			<dir class="m-5">
 				<h2>Form for {{ title }}</h2>
 				<hr class="dashed">
-				<form method="post" enctype="multipart/form-data">
+				<form method="post" action="?next={{ next }}" enctype="multipart/form-data">
 					{% csrf_token %}
 					{{ form | crispy }}
 					<button class="btn btn-success" type="submit"> Login  </button>
