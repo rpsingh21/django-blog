@@ -116,8 +116,9 @@ $(document).ready(get_comments);
 $(document).on('click','.activity-btn',function(event) {
     event.preventDefault();
     url = $(this).attr("link");
-    var current_acivity = $(this)
+    var current_acivity = $(this).parent().attr("class");
     var action = activity_request(url);
+    var p = $(this).parent().parent();
 
     // we get in action a json object 
     /*
@@ -125,4 +126,46 @@ $(document).on('click','.activity-btn',function(event) {
         'DE' == delete operations
 
     */
+    var c_obj = $(this).find("span");
+    var c_value = parseInt(c_obj.text());
+    $(this).find("i").removeClass("text-danger text-success");
+    switch (action) {
+      case "DE":
+          // $(this).find("i").removeClass("text-danger text-success");
+          $(this).find("span").html(c_value-1);
+          break;
+      case "D":
+          if (current_acivity == "U"){
+            $(this).find("span").html(c_value-1);
+
+            // now add 1 in other vote
+            p.find("D").find("i").addClass("text-danger");
+            var ch = p.find("D").find("span");
+            ch.html(parseInt(ch.text())+1);
+          }
+          else{
+            $(this).find("span").html(c_value+1);
+            $(this).find("i").removeClass("text-success");
+          }
+          break;
+      case "U":
+          if (current_acivity == "D"){
+            $(this).find("span").html(c_value-1);
+
+            // now add 1 in other vote
+            p.find("D").find("i").addClass("text-danger");
+            var ch = p.find("D").find("span");
+            ch.html(parseInt(ch.text())+1);
+          }
+          else{
+            $(this).find("span").html(c_value+1);
+            $(this).find("i").removeClass("text-success");
+          }
+          break;
+      case "F":
+          $(this).find("span").html(c_value+1);
+          $(this).find("i").removeClass("text-danger");
+          break;
+      }
+
 })
