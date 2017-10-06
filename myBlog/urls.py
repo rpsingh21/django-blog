@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^api/activitys/',include('activitys.api.urls',namespace='activitys-api')),
     url(r'^comments/',include('comments.urls',namespace='comments')),
     url(r'^',include('posts.urls',namespace='posts')),
+    url(r'^markdownx/', include('markdownx.urls')),
 	# url(r'^api/templates/(?P<item>[A-Za-z0-9\_\-\.\/]+)\.html$',  AngularTemplateView.as_view()),
     # url(r'^api/posts/',include('posts.api.urls',namespace='posts-api'))
 ]

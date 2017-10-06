@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %} 
-{% load markdown_deux_tags %}
 <!-- Page Content -->
 {% load staticfiles %} {% block content %}
 <!-- Post Content Column -->
@@ -26,9 +25,13 @@
                         {{ post.user }}
                         {% endif %}
                       </span>
+                      <span>
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        {{ post.read_time }} minutes  
+                      </span>
                         <span>
                         <i class="fa fa-comments" aria-hidden="true"></i>
-                        {{ comments_count }}
+                        {{ comments_count }} comments
                       </span>
                       <span>
                         <i class="fa fa-eye" aria-hidden="true"></i>
@@ -43,7 +46,7 @@
                     <hr class='dashed'>
 
                     <!-- Post Content -->
-                    <div class="">{{ post.content|markdown }}</div>
+                    <div class="markdown_content">{{ post.content }}</div>
                     <hr class="dashed">
 
                     <!-- social sharing and tag -->
@@ -99,6 +102,20 @@
         <div class="col-md-4">
 
             <!-- Search Widget -->
+            {% if request.user.is_authenticated %}
+            <div class="card my-4">
+              <h5 class="w3-text-green"> Actions </h5>
+              <div class="card-body">
+                <hr class="dashed mt-0">
+                <div class="centerD">
+                    <a class="btn btn-sm btn-outline-info m-1" href="#">Hide Post</a>
+                    <a class="btn btn-sm btn-outline-warning m-1" href="{% url 'posts:update' post.slug %}">Edit Post</a>
+                    <a class="btn btn-sm btn-outline-danger m-1" href="{% url 'posts:delete' post.slug %}">Delete Post</a>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+
             <div class="card my-4">
               <h5 class="w3-text-green">Search</h5>
               <div class="card-body">
@@ -148,7 +165,8 @@
 
 <!-- /.container -->
 
-{% endblock %} {% block ang %}
+{% endblock %} 
+{% block jsContent %}
 <script type="text/javascript">
     //  commet js  -----------------------------------------------------------------------------
     function get_comments() {

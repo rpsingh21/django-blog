@@ -3,13 +3,13 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
 from activitys.models import Activitys
 from comments.models import Comments
-from .utils import get_read_time
+from .utils import get_read_time ,conv_thumbnail
 # Create your models here
 class Tags(models.Model):
 	name=models.CharField(max_length=32)
@@ -98,4 +98,14 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
 		read_time_var = get_read_time(html_string)
 		instance.read_time = read_time_var
 
+	# CREATING THUMBNAIL IMAGE
+	# print("----------------------------------------------------------------")
+	# print(instance.image.path)
+	# instance.image = get_thumbnail(instance.image,"768*1024",quality=0)
+	# instance.image = conv_thumbnail(instance.image)
+
+def post_save_post_receiver(sender,instance,*args,**kwargs):
+	conv_thumbnail(instance.image,(768,1024))
+
 pre_save.connect(pre_save_post_receiver, sender=Posts)
+post_save.connect(post_save_post_receiver,sender=Posts)

@@ -40,8 +40,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'rest_framework',
-    'pagedown',
-    'markdown_deux',
+    'markdownx',
 
     'posts',
     'comments',
@@ -151,5 +150,14 @@ REST_FRAMEWORK = {
 }
 
 
-PAGEDOWN_WIDGET_CSS = ('pagedown/demo/browser/demo.css','css/pagedown.css')
 
+# markdown setting 
+
+MARKDOWNX_UPLOAD_MAX_SIZE = 2 * 1024 * 1024
+
+MARKDOWNX_IMAGE_MAX_SIZE = {
+    'size': (768, 1024),
+    'quality': 0
+}
+
+MARKDOWNX_SERVER_CALL_LATENCY = 500000

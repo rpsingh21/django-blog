@@ -1,5 +1,4 @@
 {% load my_filters %}
-{% load markdown_deux_tags %}
 {% for comment in comments %}
 {% if request.user.is_authenticated %}
 {% user_activity comment request as activity %}
@@ -19,7 +18,7 @@
         	<small> {{ comment.timestamp|timesince }} </small>
         </p>
         <div class="comment_content">
-           <p>{{ comment.content }}</p>
+           <div class="markdown_content">{{ comment.content }}</div>
            <div class="comment_action">
            	<span class="text-info">
            		<a class="activity-btn" href="#"  link="{% url 'comments:comment_activity' comment.id 'F' %}">

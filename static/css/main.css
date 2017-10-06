@@ -10,6 +10,10 @@ body {
   }
 }
 
+p{
+  text-align: justify;
+}
+
 .centerD{
   display: table;
   margin-right: auto;
@@ -20,7 +24,7 @@ body {
     background-color: #fff;
     padding: 30px;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.05);
-    margin-bottom: 4rem;
+    /*margin-bottom: 4rem;*/
     border: none;
     border-radius: 0px;
 }

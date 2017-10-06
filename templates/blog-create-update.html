@@ -1,23 +1,70 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="m-5 r-card">
-	<div style="background-color: white;" class="row">
-		<div style=" border-right: 1px dashed red;" class="col-md-6">
-			<dir class="">
-				<h2>Form for Post</h2>
-				<hr class="dashed">
-				<form method="post" enctype="multipart/form-data">
-					{% csrf_token %}
-					{{ form | crispy }}
-					<button class="btn btn-success" type="submit">Submit</button>
-				</form>
-			</dir>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 card">
+			<h2>Form for Post</h2>
+			<hr class="dashed">
+			<form method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ form | crispy }}
+				<button class="btn btn-success" type="submit">Submit</button>
+			</form>
 			{{ form.media }}
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-6 card">
+			<h2>PreViews Of Post</h2>
+			<hr class="dashed">
+			<br/>
+			<h2 class="w3-text-green" id="preview-title"></h2>
+			<div id="preview-content">
+			</div>
 		</div>
 	</div>
 </div>
 
+{% endblock %}
+{% block jsContent %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".markdownx-preview").hide();
+		$("#id_content").addClass("form-control");
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		var titleItem = $("#id_title")
+		function setTitle(value){
+			$("#preview-title").text(value)
+		}
+		setTitle(titleItem.val())
+		titleItem.keyup(function(){
+			var newTitle=$(this).val()
+			setTitle(newTitle)
+		})
+
+		var contentItem = $("#id_content")
+		function setContent(value){
+			markedValue=marked(value)
+			$("#preview-content").html(markedValue)
+			$("#preview-content img").each(function () {
+				$(this).addClass("img-fluid rounded");
+			})
+		}
+		setContent(contentItem.val())
+
+		contentItem.keyup(function(){
+			var newContent=$(this).val()
+			setContent(newContent)
+		})
+	})
+</script>
+<script type="text/javascript" src="http://www.jacklmoore.com/js/autosize.min.js"></script>
+<script type="text/javascript">
+	// $(document).ready(function(){
+	// 	$('textarea').autosize();   
+	// });
+	autosize($('textarea'));
+</script>
 {% endblock %}

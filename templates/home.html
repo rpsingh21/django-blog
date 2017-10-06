@@ -46,11 +46,11 @@
         <div class="card-body">
           {% if post.image %}
           <a href="{{ post.get_absolute_url }}">
-            <img class="card-img-top" src="{{ post.image.url }}" alt="Card image cap">
+            <img class="img-fluid rounded" src="{{ post.image.url }}" alt="{{ post.image.url }} image">
           </a>
           <br><br>
           {% endif %}
-          <p class="card-text">{{ post.content | truncatewords_html:120 }}</p>
+          <p class="card-text markdown_content">{{ post.content | truncatewords_html:120 }}</p>
           <span class="centerD">
             <a href="{{ post.get_absolute_url }}" class=""> Read More </a>
           </span>
@@ -177,7 +177,7 @@
   </div>
   <!-- /.container -->
 {% endblock %}
-{% block ang %}
+{% block jsContent %}
 <script type="text/javascript">
 $(document).on('click', '.page-link', function(e) {
   e.preventDefault();
