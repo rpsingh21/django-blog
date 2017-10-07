@@ -260,20 +260,20 @@
         });
     }
 
-    $(document).on('click', '.activity-btn', function(e) {
-        e.preventDefault();
-        url = $(this).attr("link");
-        $.ajax({
-            type: 'POST',
-            url: url,
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
-            },
-            success: function(data) {
-                get_comments();
-            }
-        });
-    });
+    // $(document).on('click', '.activity-btn', function(e) {
+    //     e.preventDefault();
+    //     url = $(this).attr("link");
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: url,
+    //         beforeSend: function(xhr) {
+    //             xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+    //         },
+    //         success: function(data) {
+    //             get_comments();
+    //         }
+    //     });
+    // });
 
     function get_edit_form(arg) {
         $(arg).slideToggle();
@@ -286,4 +286,61 @@
     {% endif %}
     $(document).ready(get_comments);
 </script>
+
+<script type="text/javascript">  
+
+//  NEW API HANDLER USING JQUERY
+$(document).on('click','.activity-btn',function(event) {
+    event.preventDefault();
+    url = $(this).attr("link");
+    var current_acivity = $(this).parent().attr("class");
+    var action = "";
+    var p = $(this).parent().parent();
+    var th  = $(this);
+    $.ajax({
+        type: 'POST',
+        url: url,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+        },
+        success: function(data) {
+            action = data;
+            var c_obj = th.find("span.vote-value");
+            var c_value = parseInt(c_obj.text());
+            th.find("i").removeClass("text-danger text-success");
+            c_obj.html(c_value-1);
+            switch (action) {
+              case "DE":
+                  break;
+              case "D":
+                  c_obj.html(c_value+1);
+                  p.find("span.D").find("i").addClass("text-danger");
+                  sb = p.children("span.U");
+                  if (sb.find("i").hasClass("text-success")){
+                                      sb.find("i").removeClass("text-success");
+                                      var now = sb.find("span.vote-value");
+                                      now.html(parseInt(now.text())-1);
+                                      }
+                  break;
+              case "U":
+                  c_obj.html(c_value+1);
+                  p.find("span.U").find("i").addClass("text-success");
+                  sb = p.children("span.D");
+                  if (sb.find("i").hasClass("text-danger")){
+                                      sb.find("i").removeClass("text-danger");
+                                      var now = sb.find("span.vote-value");
+                                      now.html(parseInt(now.text())-1);
+                                      }
+                  break;
+              case "F":
+                  c_obj.html(c_value+1);
+                  th.find("i").addClass("text-danger");
+                  break;
+              }
+        }
+    });
+})
+</script>
+
+
 {% endblock %}

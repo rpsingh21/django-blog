@@ -23,19 +23,19 @@
            	<span class="F">
            		<a class="activity-btn" href="#"  link="{% url 'comments:comment_activity' comment.id 'F' %}">
            			<i class="fa fa-heart {% if 'F' in activity %} text-danger {% endif %}" aria-hidden="true"> </i>
-           			<span> {{ comment.activitys.get_favorites.count }} votes </span> | 
+           			<span class="vote-value"> {{ comment.activitys.get_favorites.count }}</span><span>votes </span> | 
            		</a>
            	</span>
            	<span class="U">
            		<a class="activity-btn" href="#" link="{% url 'comments:comment_activity' comment.id 'U' %}">
            			<small><i class="fa fa-caret-up fa-lg fa-2x {% if 'U' in activity %} text-success {% endif %}" aria-hidden="true"> </i></small>
-           			<span> {{ comment.activitys.get_up_votes.count }} votes </span> | 
+           			<span class="vote-value"> {{ comment.activitys.get_up_votes.count }} </span><span>votes </span> | 
            		</a>
            	</span>
            	<span class="D">
            		<a class="activity-btn" href="#" link="{% url 'comments:comment_activity' comment.id 'D' %}">
            			<small><i class="fa fa-caret-down fa-lg fa-2x {% if 'D' in activity %} text-danger {% endif %}" aria-hidden="true"> </i></small>
-           			<span> {{ comment.activitys.get_down_votes.count }} votes </span> | 
+           			<span class="vote-value"> {{ comment.activitys.get_down_votes.count }} </span><span>votes </span> | 
            		</a>
            	</span>
            	<span>

@@ -42,7 +42,7 @@ def comment_activity(request,id,activity_type):
 	if not activity_type in ["F","D","U"]:
 		return HttpResponse(status=404)
 
-	data = 'D'
+	data = 'DE'
 	content_type = ContentType.objects.filter(model='comments').first()#.model_class()
 	activity = Activitys.objects.filter(object_id=id,user=request.user,content_type=content_type)
 	if activity_type == 'F':

@@ -113,59 +113,54 @@ $(document).ready(get_comments);
 
 
 //  NEW API HANDLER USING JQUERY
+
 $(document).on('click','.activity-btn',function(event) {
     event.preventDefault();
     url = $(this).attr("link");
     var current_acivity = $(this).parent().attr("class");
-    var action = activity_request(url);
+    var action = "";
     var p = $(this).parent().parent();
-
-    // we get in action a json object 
-    /*
-        activity_type = 'F','U','D','DE'
-        'DE' == delete operations
-
-    */
-    var c_obj = $(this).find("span");
-    var c_value = parseInt(c_obj.text());
-    $(this).find("i").removeClass("text-danger text-success");
-    switch (action) {
-      case "DE":
-          // $(this).find("i").removeClass("text-danger text-success");
-          $(this).find("span").html(c_value-1);
-          break;
-      case "D":
-          if (current_acivity == "U"){
-            $(this).find("span").html(c_value-1);
-
-            // now add 1 in other vote
-            p.find("D").find("i").addClass("text-danger");
-            var ch = p.find("D").find("span");
-            ch.html(parseInt(ch.text())+1);
-          }
-          else{
-            $(this).find("span").html(c_value+1);
-            $(this).find("i").removeClass("text-success");
-          }
-          break;
-      case "U":
-          if (current_acivity == "D"){
-            $(this).find("span").html(c_value-1);
-
-            // now add 1 in other vote
-            p.find("D").find("i").addClass("text-danger");
-            var ch = p.find("D").find("span");
-            ch.html(parseInt(ch.text())+1);
-          }
-          else{
-            $(this).find("span").html(c_value+1);
-            $(this).find("i").removeClass("text-success");
-          }
-          break;
-      case "F":
-          $(this).find("span").html(c_value+1);
-          $(this).find("i").removeClass("text-danger");
-          break;
-      }
-
+    var th  = $(this);
+    $.ajax({
+        type: 'POST',
+        url: url,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+        },
+        success: function(data) {
+            action = data;
+            var c_obj = th.find("span.vote-value");
+            var c_value = parseInt(c_obj.text());
+            th.find("i").removeClass("text-danger text-success");
+            c_obj.html(c_value-1);
+            switch (action) {
+              case "DE":
+                  break;
+              case "D":
+                  c_obj.html(c_value+1);
+                  p.find("span.D").find("i").addClass("text-danger");
+                  sb = p.children("span.U");
+                  if (sb.find("i").hasClass("text-success")){
+                                      sb.find("i").removeClass("text-success");
+                                      var now = sb.find("span.vote-value");
+                                      now.html(parseInt(now.text())-1);
+                                      }
+                  break;
+              case "U":
+                  c_obj.html(c_value+1);
+                  p.find("span.U").find("i").addClass("text-success");
+                  sb = p.children("span.D");
+                  if (sb.find("i").hasClass("text-danger")){
+                                      sb.find("i").removeClass("text-danger");
+                                      var now = sb.find("span.vote-value");
+                                      now.html(parseInt(now.text())-1);
+                                      }
+                  break;
+              case "F":
+                  c_obj.html(c_value+1);
+                  th.find("i").addClass("text-danger");
+                  break;
+              }
+        }
+    });
 })
