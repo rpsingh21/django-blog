@@ -5,7 +5,7 @@
     <!-- form for new commment -->
     <form action="" id="commenti" method="post">
         {% csrf_token %} {{ comment_form|crispy }}
-        <button type="submit" class="btn btn-primary submit-btn"> comment </button>
+        <button type="submit" class="btn btn-primary btn-sm submit-btn"> comment </button>
     </form>
     <p id="form_mgs"></p>
     <hr class="dashed">

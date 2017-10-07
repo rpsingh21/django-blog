@@ -75,7 +75,7 @@ class Posts(models.Model):
 		# return mark_safe(markdown_text)
 		markdown_text = markdownify(content)
 		return mark_safe(markdown_text)
-		return content
+		# return content
 
 	@property
 	def get_content_type(self):

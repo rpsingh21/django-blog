@@ -233,6 +233,14 @@ a{
   border-radius: 35px;
 }
 
+.bg-nav{
+  background-color: #000940!important;
+  line-height:1;
+}
+.line-tag{
+  line-height:1.25;
+}
+
 
 /* Colors */
 .w3-amber,.w3-hover-amber:hover{color:#000!important;background-color:#ffc107!important}

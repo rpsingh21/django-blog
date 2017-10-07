@@ -52,14 +52,14 @@
           {% endif %}
           <p class="card-text markdown_content">{{ post.content | truncatewords_html:80 }}</p>
           <span class="centerD">
-            <a href="{{ post.get_absolute_url }}" class=""> Read More </a>
+            <a class="btn btn-primary btn-sm pl-3 pr-3" href="{{ post.get_absolute_url }}" class=""> Read More </a>
           </span>
         <hr class="dashed">
         </div>
         <div class="row">
           <div class="tags text-center col-sm-6">
               {% for tag in post.tags.all %}
-                <a href="/?tag={{ tag.name }}&" class="btn-sm tagsearch btn btn-outline-{% cycle 'primary' 'success' 'info' 'warning' 'danger' 'secondary' as class %}">
+                <a href="/?tag={{ tag.name }}&" class="btn-sm tagsearch btn line-tag btn-outline-{% cycle 'primary' 'success' 'info' 'warning' 'danger' 'secondary' as class %}">
                 {{ tag.name|upper }}
                 </a>
               {% endfor %}
