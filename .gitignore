@@ -2,7 +2,7 @@
 *.pot
 *.py[co]
 .tox/
-__pycache__
+__pycache__/
 MANIFEST
 dist/
 docs/_build/
@@ -14,3 +14,4 @@ build/
 tests/report/
 migrations
 db.sqlite3
+*.sqlite3
