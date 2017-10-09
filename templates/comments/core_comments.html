@@ -1,9 +1,9 @@
+<ul class="comments">
 {% load my_filters %}
 {% for comment in comments %}
 {% if request.user.is_authenticated %}
 {% user_activity comment request as activity %}
 {% endif %}
-<ul class="comments">
   <li class="clearfix root_block">
     <img src="https://bootdey.com/img/Content/avatar/avatar{{ comment.user.id|moduler }}.png" class="avatar" alt="{{ comment.user }} profile pic">
     <div class="post-comments">
@@ -77,5 +77,5 @@
     </div>
     {% comment_reply comment.childer request  %}
   </li>
-</ul>
 {% endfor %}
+</ul>

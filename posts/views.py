@@ -52,10 +52,15 @@ def post_detail(request,slug):
 	content_type = ContentType.objects.filter(model='posts').first()
 	tags = Tags.objects.all()
 	comments_count = Comments.objects.get_all().filter(object_id=post.id,content_type=content_type).count()
+
+	# NOW GETTING RELATED POST 
+	post_tag = post.tags.values_list('name',flat=True)
+	realted_posts = Posts.objects.filter(tags__name__in = post_tag).exclude(title = post.title).order_by('-updated','-timestamp','-views').distinct()[:3]
 	context={
 		'title':post.title,
 		'post':post,
 		'comments_count':comments_count,
+		'realtedPosts':realted_posts,
 		'tags':tags,
 	}
 	return render(request,"post-detail.html",context)

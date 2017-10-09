@@ -23,10 +23,14 @@ p{
 .card {
     background-color: #fff;
     padding: 30px;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05);
     /*margin-bottom: 4rem;*/
     border: none;
     border-radius: 0px;
+}
+
+.card-border{
+  border: 
 }
 
 .tags.col-sm-6 {
@@ -103,12 +107,6 @@ body {
   margin: 3px;
 }
 
-
-
-a{
-    color: #82b440;
-    text-decoration: none;
-}
 
 .blog-comment::before,
 .blog-comment::after,

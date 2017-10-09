@@ -81,6 +81,29 @@
             <!--  Comments -->
             <div class="my-4 card"> 
                 <div class="container bootstrap snippet">
+                    <h3 class="w3-text-green"> Some Related Post </h3>
+                    <hr class="dashed">
+                    <div class="row">
+                        {% for realtedPost in realtedPosts %}
+                        <div class="col-md-4 mb-2">
+                            <div class="border rounded">
+                                <a href="{{ realtedPost.get_absolute_url }}">
+                                    <img class="card-img-top" height="120px" src="{{ realtedPost.image.url }}" alt="{{ realtedPost.slug}} image">
+                                <div class="m-1">
+                                    <h5 class="mt-1 card-title">{{ realtedPost.title|title|truncatechars:36 }}</h5></a>
+
+                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                            <div class="centerD"><h4> . . Not Found . .  </h4></div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="my-4 card"> 
+                <div class="container bootstrap snippet">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="blog-comment">
@@ -101,7 +124,7 @@
         <div class="col-md-4">
 
             <!-- Search Widget -->
-            {% if request.user.is_authenticated %}
+            {% if request.user == post.user %}
             <div class="card my-4">
               <h5 class="w3-text-green"> Actions </h5>
               <div class="card-body">
@@ -119,7 +142,7 @@
               <h5 class="w3-text-green">Search</h5>
               <div class="card-body">
                 <hr class="dashed mt-0">
-                  <form method="GET" actions="{% url 'posts:list' %}?">
+                  <form method="GET" action="/?">
                     <div class="input-group">
                       <input type="text" name="search" class="form-control" placeholder="Search for...">
                       <span class="input-group-btn">

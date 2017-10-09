@@ -164,3 +164,14 @@ $(document).on('click','.activity-btn',function(event) {
         }
     });
 })
+
+
+// new comment reply and update form seting js
+// $(document).on('click','.reply',function(event) {
+//     event.preventDefault();
+//     var parent_id=$(this).attr("id").split("-")[1]
+//     var fromId = "form-"+parent_id;
+//     var content_type "posts";
+//     var slug = "{{ post.slug }}";
+//     alert(fromId);
+// })
