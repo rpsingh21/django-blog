@@ -1,8 +1,13 @@
 body {
-    padding-top: 54px;
-    background-color: #F9F9F9;
+  padding-top: 54px;
+  background-color: rgba(180,180,180,.18);
 }
 
+@media (min-width: 992px) {
+    body {
+      padding-top: 56px;
+    }
+}
 
 @media (min-width: 1200px){
   .container {
@@ -39,12 +44,6 @@ p{
 
 .card  a{
   text-decoration: none;
-}
-
-@media (min-width: 992px) {
-    body {
-        padding-top: 56px;
-    }
 }
 
 .card-body{

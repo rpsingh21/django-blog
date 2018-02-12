@@ -23,20 +23,20 @@ from ang.views import AngularTemplateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^account/',include('account.urls',namespace='account')),
-    url(r'^api/comments/',include('comments.api.urls',namespace='comment-api')),
-    url(r'^api/activitys/',include('activitys.api.urls',namespace='activitys-api')),
-    url(r'^comments/',include('comments.urls',namespace='comments')),
-    url(r'^',include('posts.urls',namespace='posts')),
+    url(r'^account/', include('account.urls', namespace='account')),
+    url(r'^api/comments/', include('comments.api.urls', namespace='comment-api')),
+    url(r'^api/activitys/', include('activitys.api.urls', namespace='activitys-api')),
+    url(r'^comments/', include('comments.urls', namespace='comments')),
+    url(r'^', include('posts.urls', namespace='posts')),
     url(r'^markdownx/', include('markdownx.urls')),
-	# url(r'^api/templates/(?P<item>[A-Za-z0-9\_\-\.\/]+)\.html$',  AngularTemplateView.as_view()),
+    # url(r'^api/templates/(?P<item>[A-Za-z0-9\_\-\.\/]+)\.html$',  AngularTemplateView.as_view()),
     # url(r'^api/posts/',include('posts.api.urls',namespace='posts-api'))
 ]
 
 if settings.DEBUG:
-	urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # urlpatterns +=  [
-# 	url(r'', TemplateView.as_view(template_name='base.html'))
+#   url(r'', TemplateView.as_view(template_name='base.html'))
 # ]

@@ -25,7 +25,7 @@ SECRET_KEY = 'trmmg$-bedkg0*g4dv5496&0g_vfy#4&zga&$+)4!w*#p_e6c1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', 'myblog.com']
 
 
 # Application definition
