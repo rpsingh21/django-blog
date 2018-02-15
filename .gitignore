@@ -15,3 +15,17 @@ tests/report/
 migrations
 db.sqlite3
 *.sqlite3
+.cache
+
+# Django stuff:
+*.log
+.static_storage/
+.media/
+local_settings.py
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+#NODE file
+node_modules/
