@@ -1,1 +1,1 @@
-this is simple blog project which contain advance comments system 
+this is simple blog project which contain advance comments system
