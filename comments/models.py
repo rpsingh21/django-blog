@@ -46,8 +46,8 @@ class CommentsManerger(models.Manager):
 # model for commnets
 
 class Comments(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
-    parent = models.ForeignKey("self", blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    parent = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE)
     content = models.TextField()
 
     # genric foreignkey fields

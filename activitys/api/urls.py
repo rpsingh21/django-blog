@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from .views import (
     ActivitysListAPIView,
@@ -7,7 +7,7 @@ from .views import (
     )
 
 urlpatterns = [
-    url(r'^$', ActivitysListAPIView.as_view(), name='activitys'),
-    url(r'^create/$', ActivitysCreateAPIView.as_view(), name='create'),
-    url(r'^edit/(?P<pk>\d+)/$', ActivitysRetrieveUpdateDestroyAPIView.as_view(), name='update'),
+    re_path(r'^$', ActivitysListAPIView.as_view(), name='activitys'),
+    re_path(r'^create/$', ActivitysCreateAPIView.as_view(), name='create'),
+    re_path(r'^edit/(?P<pk>\d+)/$', ActivitysRetrieveUpdateDestroyAPIView.as_view(), name='update'),
 ]
