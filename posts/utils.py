@@ -1,8 +1,5 @@
-import datetime
 import math
 import re
-import os
-import sys
 from PIL import Image
 
 from django.utils.html import strip_tags
@@ -23,7 +20,7 @@ def get_read_time(html_string):
 
 def conv_thumbnail(image, size):
     img = Image.open(image.path)
-    img.thumbnail(size, Image.ANTIALIAS)
+    img.thumbnail(size)
     img.save(image.path, img.format, quality=0)
     image = img
     return image
