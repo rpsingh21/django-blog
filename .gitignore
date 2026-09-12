@@ -33,3 +33,6 @@ node_modules/
 # Static files
 static_cdn/
 media_cdn/
+
+# venv
+.venv
