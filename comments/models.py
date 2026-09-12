@@ -21,8 +21,7 @@ class CommentsManerger(models.Manager):
 
     def filter_by_instance(self, instance):
         content_type = ContentType.objects.get_for_model(instance.__calss__)
-        object_id = instance.object_id
-        commnets = super(CommentsManerger, self).filter(content_type=content_type, object_id=objects_id).filter(parent=None)
+        commnets = super(CommentsManerger, self).filter(content_type=content_type, object_id=instance.object_id).filter(parent=None)
         return commnets
 
     def create_by_model_type(self, model_type, slug, content, user, parent_obj=None):
