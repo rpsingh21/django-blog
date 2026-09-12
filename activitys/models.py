@@ -36,7 +36,7 @@ class Activitys(models.Model):
         (DOWN_VOTE, 'Down Vote'),
     )
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, on_delete=models.CASCADE)
     activity_type = models.CharField(max_length=1, choices=ACTIVITY_TYPES)
     date = models.DateTimeField(auto_now_add=True)
 

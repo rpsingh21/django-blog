@@ -12,7 +12,7 @@ tests/coverage_html/
 tests/.coverage
 build/
 tests/report/
-migrations
+# migrations
 db.sqlite3
 *.sqlite3
 .cache
@@ -29,3 +29,10 @@ instance/
 
 #NODE file
 node_modules/
+
+# Static files
+static_cdn/
+media_cdn/
+
+# venv
+.venv

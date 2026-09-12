@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 
 from .views import (
     CommentsListAPIView,
@@ -8,9 +8,9 @@ from .views import (
     CommentDestroyAPIView,
     )
 urlpatterns = [
-    url(r'^$', CommentsListAPIView.as_view(), name='list'),
-    url(r'^create/$', CommentCreateAPIView.as_view(), name='create'),
-    url(r'^(?P<object_id>\d+)/$', InstanceCommentsListAPIView.as_view(), name='post-commments'),
-    url(r'^edit/(?P<pk>\d+)/$', CommentEditOrDeleteAPIView.as_view(), name="update"),
-    url(r'^delete/(?P<pk>\d+)/$', CommentDestroyAPIView.as_view(), name="delete"),
+    re_path(r'^$', CommentsListAPIView.as_view(), name='list'),
+    re_path(r'^create/$', CommentCreateAPIView.as_view(), name='create'),
+    re_path(r'^(?P<object_id>\d+)/$', InstanceCommentsListAPIView.as_view(), name='post-commments'),
+    re_path(r'^edit/(?P<pk>\d+)/$', CommentEditOrDeleteAPIView.as_view(), name="update"),
+    re_path(r'^delete/(?P<pk>\d+)/$', CommentDestroyAPIView.as_view(), name="delete"),
 ]
