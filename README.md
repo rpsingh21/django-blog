@@ -9,6 +9,8 @@
 [![GitHub Forks](https://img.shields.io/github/forks/rpsingh21/django-blog?logo=github)](https://github.com/rpsingh21/django-blog/network/members)
 [![Last Commit](https://img.shields.io/github/last-commit/rpsingh21/django-blog?logo=github)](https://github.com/rpsingh21/django-blog/commits/master)
 [![Repo Size](https://img.shields.io/github/repo-size/rpsingh21/django-blog?logo=github)](https://github.com/rpsingh21/django-blog)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
 
 
 A Django-based blogging platform with an advanced commenting system, user profiles, Markdown support, post interactions, and image uploads.
