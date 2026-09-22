@@ -330,13 +330,6 @@ Potential areas for future improvement:
 
 No license is currently specified in the repository. If you intend this project to be open source, consider adding an appropriate `LICENSE` file.
 
-## 👨‍💻 Author
-
-**Rohit Singh**
-
-GitHub:
-https://github.com/rpsingh21
-
 ---
 
 ⭐ If you find this project useful, consider starring the repository.
